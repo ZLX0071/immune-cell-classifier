@@ -1,0 +1,156 @@
+<mxfile host="app.diagrams.net" modified="2026-09-26T00:00:00.000Z" agent="ZCode" version="24.0.0" type="device">
+  <diagram id="cellarch" name="系统架构图">
+    <mxGraphModel dx="1600" dy="900" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="免疫细胞 AI 辅助判读工具 · 系统架构图" style="text;html=1;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="500" y="20" width="1400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Streamlit 单体应用 · PyTorch 推理 · 5 架构 × 10 集成组合 · 复盘型架构文档(依据实际实现绘制)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="500" y="60" width="1400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- L1 -->
+        <mxCell id="L1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#cbd5e1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="120" width="2030" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="L1h" value="① 交互层 · Streamlit" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#1e40af;" vertex="1" parent="1">
+          <mxGeometry x="210" y="128" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" value="模型选择&#10;5 单模型 · 10 集成组合" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="170" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" value="图像上传&#10;PNG · JPG · 单张" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="170" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" value="结果展示&#10;类别 · 置信度 · 概率分布" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="170" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" value="低置信预警&#10;置信度 &lt; 50% → 建议人工复核" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#b91c1c;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="170" width="430" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="L1" target="L2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- L2 -->
+        <mxCell id="L2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2ff;strokeColor=#cbd5e1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="325" width="2030" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="L2h" value="② 推理编排层" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#3730a3;" vertex="1" parent="1">
+          <mxGeometry x="210" y="333" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" value="图像预处理&#10;Resize 224×224 · 归一化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f46e5;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="380" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="Checkpoint 加载&#10;load_state_dict · 缓存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f46e5;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="380" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="前向推理&#10;logits → softmax" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f46e5;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="380" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="集成 soft voting&#10;组件概率平均" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f46e5;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="380" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" value="置信度判断&#10;&lt; 50% 触发预警" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f46e5;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="380" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="pa1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p1" target="p2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="pa2" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2" target="p3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="pa3" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p3" target="p4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="pa4" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p4" target="p5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="L2n" value="PyTorch 2.x · CPU / CUDA 自适应 · 模型缓存避免重复加载" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="600" y="485" width="1200" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="L2" target="L3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- L3 -->
+        <mxCell id="L3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#cbd5e1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="570" width="2030" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="L3h" value="③ 模型层 · 5 种架构统一评测" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#5b21b6;" vertex="1" parent="1">
+          <mxGeometry x="210" y="578" width="500" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" value="ResNet50&#10;自定义分类头 2048→256→3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7c3aed;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="620" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" value="DenseNet121&#10;稠密连接 · 分类头 1024→3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7c3aed;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="620" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" value="EfficientNet-B0&#10;复合缩放 · ROC-AUC 最优" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7c3aed;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="620" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" value="MobileNetV3-Large&#10;轻量化 · 单模型最优 F1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7c3aed;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="620" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m5" value="ViT-B/16&#10;Transformer · CAM 需 reshape" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7c3aed;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="620" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="L3n" value="两两集成 10 种组合 soft voting · 默认:MobileNetV3 + EfficientNet-B0(宏 F1 0.488,相对最优单模型 +7.3%)" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="400" y="700" width="1600" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a3" value="输入张量 · 预测类别 · target layers" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0d9488;strokeWidth=2;dashed=1;fontSize=12;fontColor=#0d9488;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="L3" target="L4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- L4 -->
+        <mxCell id="L4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fdfa;strokeColor=#cbd5e1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="775" width="2030" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="L4h" value="④ 可解释层 · Grad-CAM(与主链路并行)" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#115e59;" vertex="1" parent="1">
+          <mxGeometry x="210" y="783" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="g1" value="Grad-CAM 生成&#10;target layers 按模型配置 · 逐集成组件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0d9488;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="825" width="560" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g2" value="热力图叠加原图&#10;224×224 · RGB 叠加" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0d9488;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="825" width="560" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" value="颜色标尺&#10;低 → 中 → 高 影响强度(相对值)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0d9488;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="825" width="560" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="L4n" value="面向非技术使用者:附「如何解读热力图」说明,警示颜色为相对影响而非概率" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="400" y="915" width="1600" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- L5 -->
+        <mxCell id="L5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="980" width="2030" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="L5h" value="⑤ 资产层" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="210" y="988" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" value="model_checkpoints/&#10;5 × .pt 权重(约 480 MB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="1030" width="560" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" value="Data/&#10;22,005 张 H&amp;E 图像(4 类 → 3 类口径)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1030" width="560" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="评测报告&#10;可从 checkpoint 一键复现全部评测图表" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=2;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="1030" width="560" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="as1" value="权重加载" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;fontSize=12;fontColor=#64748b;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="s1" target="m1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="150" y="1070" /><mxPoint x="150" y="655" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="as2" value="图像数据" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#475569;strokeWidth=2;fontSize=12;fontColor=#64748b;exitX=0;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="s2" target="p1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="110" y="1090" /><mxPoint x="110" y="425" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="aret" value="热力图回传结果页" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0d9488;strokeWidth=2;fontSize=12;fontColor=#0d9488;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="L4" target="L1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2360" y="865" /><mxPoint x="2360" y="210" /></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="foot" value="复盘型架构文档 · 依据 app.py 实际实现绘制 · 2026-09" style="text;html=1;align=right;verticalAlign=middle;fontSize=12;fontColor=#94a3b8;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="1190" width="720" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

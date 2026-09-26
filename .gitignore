@@ -1,0 +1,14 @@
+# Large assets (see README "Repository notes")
+Data/
+model_checkpoints/
+*.pt
+
+# OS / editor junk
+__MACOSX/
+.DS_Store
+.Rhistory
+Thumbs.db
+
+# Notebook & tooling caches
+.ipynb_checkpoints/
+.quarto/
