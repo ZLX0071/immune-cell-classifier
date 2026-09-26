@@ -1,5 +1,5 @@
 r"""
-Immune Cell Classifier - DATA3888 Image Group 17
+Immune Cell Classifier
 
 Streamlit app for classifying H&E immune-cell images as:
     B Cell, Macrophage, or T Cell.
@@ -9,7 +9,7 @@ Colab setup:
     from google.colab import drive
     drive.mount("/content/drive")
 
-    !streamlit run /content/drive/My\ Drive/DATA3888\ Image\ G17/app.py
+    !streamlit run /content/drive/My\ Drive/ImmuneCellClassifier/app.py
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-DRIVE_BASE = "/content/drive/My Drive/DATA3888 Image G17"
+DRIVE_BASE = "/content/drive/My Drive/ImmuneCellClassifier"
 DRIVE_CHECKPOINT_DIR = os.path.join(DRIVE_BASE, "checkpoints")
 
 EFFICIENTNET_CKPT = os.path.join(DRIVE_CHECKPOINT_DIR, "efficientnet_best.pt")

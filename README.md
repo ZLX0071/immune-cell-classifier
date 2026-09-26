@@ -6,7 +6,7 @@ An end-to-end H&E-stained immune-cell classification tool with interpretability 
 > **Product positioning / 产品定位**: assist — never replace — the pathologist. Predictions below 50% confidence trigger an explicit "recommend manual review" warning, keeping the final decision with the human expert.
 > 定位为"辅助而非替代":低置信(<50%)结果强制提示人工复核,最终决定权留给使用者。
 
-**Team**: 6-member university group project · led evaluation-system design and product delivery
+**Project**: In collaboration with the University of Sydney medical faculty · core lead for evaluation-system design and product delivery
 **团队**:6 人课程项目,本人主导评测体系设计与结果产品化
 
 ---
@@ -57,7 +57,7 @@ Runs on CPU; CUDA is used automatically if available.
 | `docs/免疫细胞AI辅助判读工具_一页纸PRD.md` | One-page PRD: scene research (cited), goals/non-goals, P0–P2 requirements, acceptance criteria, ADRs, quality-ops & A/B plan |
 | `docs/系统架构图.png` (+ `.drawio` source) | 5-layer system architecture: UI → inference orchestration → model zoo → Grad-CAM layer → assets |
 | `docs/判读主链路泳道图.png` (+ `.drawio` source) | Main pipeline swimlane with the low-confidence → manual-review boundary |
-| `DATA3888 Workflow.png` | Original team workflow diagram |
+| `workflow_diagram.png` | Original project workflow diagram |
 
 ## Repository notes 仓库说明
 
@@ -74,7 +74,7 @@ from google.colab import drive
 drive.mount('/content/drive')
 
 # Step 2 — Copy app to local disk
-!cp "/content/drive/My Drive/DATA3888 Image G17/app.py" /content/app.py
+!cp "/content/drive/My Drive/ImmuneCellClassifier/app.py" /content/app.py
 
 # Step 3 — Launch with ngrok tunnel
 from pyngrok import ngrok

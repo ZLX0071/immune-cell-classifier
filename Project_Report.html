@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Immune Cell Classification Report</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -61,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="Project_Report_files/libs/clipboard/clipboard.min.js"></script>
 <script src="Project_Report_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="Project_Report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="Project_Report_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="Project_Report_files/libs/quarto-html/popper.min.js"></script>
 <script src="Project_Report_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="Project_Report_files/libs/quarto-html/anchor.min.js"></script>
 <link href="Project_Report_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Project_Report_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="Project_Report_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Project_Report_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Project_Report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Project_Report_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="Project_Report_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -118,7 +123,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#future-work-or-improvements" id="toc-future-work-or-improvements" class="nav-link" data-scroll-target="#future-work-or-improvements">Future Work or Improvements</a></li>
   <li><a href="#project-summary" id="toc-project-summary" class="nav-link" data-scroll-target="#project-summary">Project Summary</a></li>
   </ul></li>
-  <li><a href="#student-contributions" id="toc-student-contributions" class="nav-link" data-scroll-target="#student-contributions">Student Contributions</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   <li><a href="#ai-acknowledgement" id="toc-ai-acknowledgement" class="nav-link" data-scroll-target="#ai-acknowledgement">AI Acknowledgement</a></li>
   </ul>
@@ -226,8 +230,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="method">Method</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Project_Report_files/figure-html/519f61c5-b047-4773-8cd8-5d3c22732721-1-dd22d058-5b55-4541-8435-8756e625bbee.png" class="img-fluid figure-img"></p>
-<figcaption>DATA3888 Workflow.drawio (2).png</figcaption>
+<p><img src="Project_Report_files/figure-html/519f61c5-b047-4773-8cd8-5d3c22732721-1-Workflow_diagram.png" class="img-fluid figure-img"></p>
+<figcaption>Workflow diagram</figcaption>
 </figure>
 </div>
 <section id="data-collection" class="level3">
@@ -1210,7 +1214,7 @@ The Streamlit dashboard therefore serves as a prototype decision-support tool ra
 <section id="grad-cam-visualisations" class="level3">
 <h3 class="anchored" data-anchor-id="grad-cam-visualisations">Grad-CAM Visualisations</h3>
 <p>Figure 4 presents two example cell images and their corresponding Grad-CAM visualisations. The four panels show the original image and Grad-CAM overlay for each example.</p>
-<div id="121c8a29" class="cell" data-execution_count="10">
+<div id="121c8a29" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimpleGradCAM:</span>
@@ -1347,7 +1351,7 @@ The Streamlit dashboard therefore serves as a prototype decision-support tool ra
 <span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>plt.suptitle(</span>
 <span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Original Images and Grad-CAM Visualisations"</span>,</span>
-<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">25</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>,</span>
 <span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="fl">0.96</span> <span class="co">#Move title closer to images</span></span>
 <span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
@@ -1383,15 +1387,6 @@ The Streamlit dashboard therefore serves as a prototype decision-support tool ra
 <p>Markdown word count: 2893</p>
 </section>
 </section>
-<section id="student-contributions" class="level2">
-<h2 class="anchored" data-anchor-id="student-contributions">Student Contributions</h2>
-<p>Cindy: 1. Contributed to the biological background research, helping establish the clinical motivation for classifying B-cells, T-cells, and macrophages. 2. Worked on the model evaluation code, interpretability code, and contributed to the presentation materials. 3. Contributed to the report (Aim and Background) 4. Contributed to the presentation slides and script.</p>
-<p>Jack: 1. Contributed to handling class imbalance, developing the EfficientNet model, writing the modelling rationale and evaluation strategy, and testing ensemble approaches. 2. Contributed to the report (Model Development, Model Training Setup, Model Justification, Evaluation Strategies, Results, Student Contributions) 3. Contributed to report formatting and helped coordinate the overall project workflow.</p>
-<p>CheMing Liu (James): 1. Contributed to data augmentation, data processing, and the development of the MobileNet and Vision Transformer models. 2. Contributed to the report (Data Collection, Preprocessing, Student Contributions, References) 3. Contributed to the presentation materials and helped explain the modelling approach. 4. Contributed to the presentation slides and script.</p>
-<p>Zilian: 1. Contributed to the Streamlit platform, developed the DenseNet model. 2. Contributed to the report (Discussion and Conclusion) 3. Helped connect the modelling outputs to the broader limitations and future directions of the project.</p>
-<p>Duc: 1. Contributed to the researching to justify adding the third class for the models on the report, the development of the ResNet model, and the Streamlit platform. 2. Contributed to the report (Data collection)</p>
-<p>Emmy: 1. Contributed to model evaluation, figure collection, modelling rationale, and repeated model training and refinement. 2. Compared model outputs, tuned the modelling process, and prepared results for the final report. 3. Contributed to the report (Results, Deployment Process)</p>
-</section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p>[1] Cano, L.E. and Lopera, D.E. (2013). Introduction to T and B Lymphocytes. [online] Nih.gov. Available at: https://www.ncbi.nlm.nih.gov/books/NBK459471/.</p>
@@ -1412,7 +1407,7 @@ The Streamlit dashboard therefore serves as a prototype decision-support tool ra
 </section>
 <section id="ai-acknowledgement" class="level2">
 <h2 class="anchored" data-anchor-id="ai-acknowledgement">AI Acknowledgement</h2>
-<p>We acknowledge the use of AI tools to support the development of this project. AI was used to assist with debugging code, checking the clarity and accuracy of our explanations, refining written sections, and confirming the feasibility of our approach. All final decisions, analysis, model development, and conclusions were reviewed and completed by our group.</p>
+<p>We acknowledge the use of AI tools to support the development of this project. AI was used to assist with debugging code, checking the clarity and accuracy of our explanations, refining written sections, and confirming the feasibility of our approach. All final decisions, analysis, model development, and conclusions were reviewed and completed by the project’s core contributors.</p>
 </section>
 
 </main>
