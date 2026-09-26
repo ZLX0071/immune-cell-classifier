@@ -1,0 +1,79 @@
+<mxfile host="app.diagrams.net" modified="2026-09-27T00:00:00.000Z" agent="ZCode" version="24.0.0" type="device">
+  <diagram id="uiwireframe" name="界面低保真原型">
+    <mxGraphModel dx="1600" dy="900" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="免疫细胞 AI 辅助判读工具 · 界面低保真原型(线框)" style="text;html=1;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="450" y="16" width="1400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Frame A:上传态 | Frame B:低置信结果态 · 基于已实现界面反向沉淀 · 2026-09" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="450" y="56" width="1400" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- Frame A -->
+        <mxCell id="faLabel" value="Frame A · 上传前" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="300" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="fa" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="1040" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="faHeader" value="🔬 Immune Cell Classifier                              Deploy" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;fontSize=14;fontStyle=1;align=left;spacingLeft=16;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="1040" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="faSide" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="172" width="280" height="668" as="geometry" />
+        </mxCell>
+        <mxCell id="faSideT" value="模型选择 ▼&#10;[默认集成(MobileNetV3+EfficientNet)]&#10;[☑ 显示 Grad-CAM 热力图]&#10;――――――――&#10;模型性能对比(常驻)&#10;[5 模型 × Acc/F1/AUC 表]&#10;――――――――&#10;项目背景说明" style="text;html=1;align=left;verticalAlign=top;fontSize=12;fontColor=#334155;spacingLeft=12;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="280" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="faTitle" value="🔬 免疫细胞辅助判读&#10;上传 H&E 图像,分类为 B Cell / Macrophage / T Cell" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="360" y="180" width="700" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="faCkpt" value="▾ Checkpoint status(5 个权重 ✅ available)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=12;align=left;spacingLeft=14;" vertex="1" parent="1">
+          <mxGeometry x="360" y="252" width="700" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="faUpload" value="⬆ 拖拽或点击上传&#10;PNG · JPG · 单张 ≤ 200MB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=2;dashed=1;fontSize=14;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="360" y="330" width="700" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="faInfo" value="上传后返回:预测类别 · 置信度 · 三类概率分布 · Grad-CAM 热力图&#10;置信度 &lt; 50% 时:结果照常展示 + 附加「建议人工复核」预警" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#cbd5e1;fontSize=12;fontColor=#1e40af;align=left;spacingLeft=14;" vertex="1" parent="1">
+          <mxGeometry x="360" y="550" width="700" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Frame B -->
+        <mxCell id="fbLabel" value="Frame B · 低置信结果态(预警示例)" style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="80" width="400" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="fb" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="100" width="1040" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="fbHeader" value="🔬 Immune Cell Classifier" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;fontSize=14;fontStyle=1;align=left;spacingLeft=16;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="100" width="1040" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="fbSide" value="侧边栏同 Frame A&#10;(模型选择 / 性能表常驻)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=12;fontColor=#94a3b8;align=left;spacingLeft=14;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="172" width="280" height="668" as="geometry" />
+        </mxCell>
+        <mxCell id="fbImg" value="原图预览&#10;(上传的 H&E 图像)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="180" width="330" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="fbPred" value="预测结果&#10;Macrophage&#10;置信度:43.7% *&#10;[B / M / T 概率分布条]&#10;数值表默认折叠" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=13;align=left;spacingLeft=16;spacingTop=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1810" y="180" width="330" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="fbWarn" value="⚠ 低置信预警:置信度 43.7% &lt; 50%,建议人工复核&#10;结果不隐藏,最终判断由使用者决定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#b91c1c;align=left;spacingLeft=16;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="456" width="690" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="fbCam1" value="原图" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="546" width="330" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="fbCam2" value="Grad-CAM 热力图叠加&#10;(逐集成组件生成)&#10;[颜色条:低 → 高]&#10;颜色 = 相对影响,≠ 概率" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="1810" y="546" width="330" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- annotations -->
+        <mxCell id="ann" value="交互设计决策标注&#10;① 非阻断式预警:低置信时结果照常展示,仅附加「建议人工复核」,最终决定权留给使用者&#10;② 渐进披露:概率数值表默认折叠,热力图附「如何解读」说明,避免过度解释&#10;③ 模型透明:性能对比表常驻侧边栏,Checkpoint 状态可查——使用者带着预期使用工具" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdfa;strokeColor=#0d9488;fontSize=13;fontColor=#115e59;align=left;spacingLeft=20;spacingTop=12;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="40" y="900" width="2130" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
