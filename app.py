@@ -220,7 +220,7 @@ MODEL_SPECS = {
 # Loading and inference
 # ---------------------------------------------------------------------------
 def resolve_checkpoint_path(spec: ModelSpec) -> Path:
-    env_dir = os.environ.get("DATA3888_CHECKPOINT_DIR")
+    env_dir = os.environ.get("IMMUNE_CELL_CHECKPOINT_DIR")
     candidates = []
     if env_dir:
         candidates.append(Path(env_dir) / spec.checkpoint_name)
@@ -413,7 +413,7 @@ if _in_colab and not os.path.exists("/content/drive/My Drive"):
 st.title("🔬 Immune Cell Classifier")
 st.caption(
     "Upload an H&E-stained immune-cell image and classify it as "
-    "**B Cell**, **Macrophage**, or **T Cell** using one of the trained DATA3888 models."
+    "**B Cell**, **Macrophage**, or **T Cell** using one of the trained models from this project."
 )
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
