@@ -54,7 +54,7 @@ Runs on CPU; CUDA is used automatically if available.
 
 | Document | Content |
 |---|---|
-| `docs/免疫细胞AI辅助判读工具_一页纸PRD.md` | One-page PRD: scene research (cited), user stories, goals/non-goals, P0–P2 requirements, acceptance criteria, ADRs, review & delivery log, quality-ops & A/B plan |
+| `docs/免疫细胞AI辅助判读工具_一页纸PRD.md` | One-page PRD: scene research (cited), user stories, goals/non-goals, P0–P2 requirements, acceptance criteria, ADRs, review & delivery log, quality-ops & A/B plan, limitations & path to production |
 | `docs/系统架构图.png` (+ `.drawio` source) | 5-layer system architecture: UI → inference orchestration → model zoo → Grad-CAM layer → assets |
 | `docs/判读主链路泳道图.png` (+ `.drawio` source) | Main pipeline swimlane with the low-confidence → manual-review boundary |
 | `docs/界面原型线框图.png` (+ `.drawio` source) | Low-fidelity UI wireframe: upload state & low-confidence result state, with interaction-design annotations |
