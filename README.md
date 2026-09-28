@@ -1,94 +1,101 @@
-# Immune Cell AI-Assisted Classifier 免疫细胞 AI 辅助判读工具
+# 免疫细胞 AI 辅助判读工具 · 医疗 AI 辅助判读 PoC 案例
 
-An end-to-end H&E-stained immune-cell classification tool with interpretability and a human-in-the-loop confidence guardrail.
-端到端 H&E 染色免疫细胞辅助判读工具:图像上传 → 细胞识别 → Grad-CAM 可解释归因 → 低置信预警转人工。
-
-> **Product positioning / 产品定位**: assist — never replace — the pathologist. Predictions below 50% confidence trigger an explicit "recommend manual review" warning, keeping the final decision with the human expert.
-> 定位为"辅助而非替代":低置信(<50%)结果强制提示人工复核,最终决定权留给使用者。
-
-**Project**: In collaboration with the University of Sydney medical faculty · core lead for evaluation-system design and product delivery
-**团队**:6 人课程项目,本人主导评测体系设计与结果产品化
+> 面向**病理/生物学研究人员**的 H&E 免疫细胞辅助判读工具:3 类细胞(B 细胞/T 细胞/巨噬细胞)· **22,005 张** H&E 图像。
+> 与悉尼大学医学部合作项目(6 人团队),本人任核心负责人,主导评测体系设计与结果产品化。
+> 产品文档见 [docs/](docs/):PRD · 系统架构图 · 主链路泳道图 · 界面原型 · 交付截图。
 
 ---
 
-## Results 模型评测结果
+## 1. 一句话定位
 
-5 architectures benchmarked under a unified protocol (per-class recall & macro-F1 as primary metrics under 5:1 class imbalance; ROC-AUC / Log Loss as secondary; confusion-matrix error attribution). All 10 pairwise ensembles evaluated.
+一个以「**辅助而非替代**」为产品边界的 H&E 免疫细胞辅助判读工具(PoC):图像上传 → 3 类细胞识别 → Grad-CAM 可解释归因 → 低置信(<0.5)**非阻断式**"建议人工复核"预警。交付物 = 可交互 Streamlit 应用 + 从 checkpoint 一键复现的评测报告 + 完整产品文档链。
 
-| Model | Accuracy | Macro F1 | ROC-AUC |
+## 2. Product Problem|要解决的问题
+
+- **人力缺口**:病理判读人力持续紧张——美国 HRSA 预测到 2037 年全职病理医生缺口约 4,230 人;2024 年综述(Walsh et al.)记录了全球病理医生数量下降与工作量上升的双重压力。
+- **重复判读**:单张 H&E 图像的细胞判读费时、重复、依赖个人经验;且类别不均衡的数据会让"少数类漏检"被整体准确率掩盖,难以被发现。
+- **已有范式可依**:2021.09 美国 FDA 以 De Novo 路径授权 Paige Prostate——首个 AI 数字病理产品,范式为"**AI 辅助定位可疑区域 + 病理医生最终确认**"。本项目的产品边界与该范式同构。
+
+## 3. Target Users
+
+**病理与生物学研究人员**,核心场景:对单张 H&E 图像做快速判读与复核(实验/教学场景)。完整用户故事见 [PRD §4](docs/免疫细胞AI辅助判读工具_一页纸PRD.md)。
+
+## 4. Product Boundary|产品边界:辅助而非替代
+
+- **低置信预警是非阻断式的**:置信度 < 0.5 时,结果**照常展示**,仅显著附加"建议人工复核"——不隐藏、不拦截,最终决定权留给使用者。理由:使用者是专业人士,需要完整信息 + 自己的判断;工具提供证据与不确定性,不提供结论。
+- **可解释是信任设计,不是装饰**:Grad-CAM 热力图逐集成组件生成,叠加原图并附颜色标尺;配「如何解读」说明与"**颜色 = 相对影响,≠ 概率**"的防误读标注(研究显示:差的可解释反而降低信任)。
+- 三条交互设计决策(非阻断预警 / 渐进披露 / 模型透明)详见 [界面原型线框图](docs/界面原型线框图.png)。
+
+## 5. Evaluation|指标体系与选型决策
+
+**数据**:22,005 张 H&E 图像(B 4,987 / T 15,394 / 巨噬 1,624,约 **5:1 不均衡**);60/20/20 固定随机种子划分,测试集约 4,400 张。
+
+**指标体系**:5:1 类别不均衡下,准确率会被多数类主导(全猜多数类也有约 70%)——因此以**逐类召回率与宏平均 F1 为主指标**(准确率仅作参考),ROC-AUC / LogLoss 为辅,配合混淆矩阵做 badcase 归因。
+
+**架构横评**:5 种架构在统一协议(固定划分、同预处理、同指标)下横向评测:
+
+| 模型 | Accuracy | Macro F1 | ROC-AUC |
 |---|---|---|---|
 | ResNet50 | 0.604 | 0.451 | 0.657 |
 | DenseNet121 | 0.545 | 0.448 | 0.689 |
-| EfficientNet-B0 | 0.606 | 0.453 | 0.707 |
+| EfficientNet-B0 | 0.606 | 0.453 | **0.707** |
 | ViT-B/16 | 0.574 | 0.449 | 0.690 |
-| MobileNetV3 | 0.621 | 0.455 | 0.644 |
-| **MobileNetV3 + EfficientNet-B0 (ensemble, final)** | **0.612** | **0.488** | — |
+| MobileNetV3 | **0.621** | 0.455 | 0.644 |
 
-Final ensemble choice trades ~0.9pp accuracy for a +7.3% relative macro-F1 gain and complementary errors (error correlation 0.388) — the balanced metric matters more in an assistive setting.
+**集成决策**:全部 **10 个两两集成组合**全量评测,以宏 F1 相对提升 **+7.3%**(0.455 → 0.488)与**错误相关性 0.388**(互补性强)选定 **MobileNetV3 + EfficientNet-B0 软投票**(准确率 0.612,微降 0.9pp 换取类别均衡表现)。**>2 模型的集成收益有限、复杂度反增,主动收敛于两模型方案。** 负结果同样保留:DenseNet121 宏 F1 最差(0.448)的完整对照记录在报告中。
 
-## Dataset 数据
+**可复现**:评测报告的全部图表可从 checkpoint 一键复算(`Project_Report.html`)。
 
-22,005 H&E-stained immune-cell images in 3 classes: 4,987 B cells, 15,394 T cells (CD4+ and CD8+ merged), 1,624 Macrophages (~5:1 imbalance). Split 60/20/20 with a fixed seed; class imbalance handled via WeightedRandomSampler and augmentation.
+## 6. Demo
 
-原始数据集(作者提供):[Dropbox 链接](https://www.dropbox.com/scl/fo/avptnrxjluth1w414ufla/AEt8ARm3mICcu8gFuj_QIK8?rlkey=wuw9isad1dw4b90o1aqdvfee6&e=1&dl=0)
+<!-- 演示 GIF 占位:录屏后保存为 docs/demo.gif,并取消下一行注释 -->
+<!-- ![demo](docs/demo.gif) -->
 
-## App features 应用功能
-
-- Upload an H&E cell image (PNG/JPG) and classify: B Cell / Macrophage / T Cell
-- Choose any of the 5 individual models or all 10 pairwise ensemble combinations
-- Confidence score and per-class probability breakdown
-- Low-confidence (<50%) warning recommending manual pathologist review
-- Grad-CAM heatmaps per ensemble component, with color scale and reading guide
-- Sidebar model-performance comparison table
-
-## Quickstart 快速开始
+**演示 GIF 待补**(上传 → 识别 → 置信度 → Grad-CAM → 低置信预警,约 30 秒)。当前交付证据:应用真实截图 [docs/app_ui_home.png](docs/app_ui_home.png);本地运行:
 
 ```bash
 pip install -r requirements.txt
-streamlit run app.py        # then open http://localhost:8501
+streamlit run app.py   # 打开 http://localhost:8501,CPU 即可运行
 ```
 
-Runs on CPU; CUDA is used automatically if available.
+## 7. Limitations|PoC 定位与生产化差距
 
-## Project documents 产品文档(docs/)
+**准确定位:方法论完整的 PoC(概念验证原型)**——验证的是评测协议、人机协同边界与可解释性设计,尚未验证临床价值。当前主要局限:
 
-| Document | Content |
+- 概率校准未做:0.5 阈值是产品定义,不是校准推导(生产化需 reliability diagram + 代价函数重定);
+- 单医生标注:生产化需标注委员会与一致性度量(kappa);
+- 输入为课程裁剪的 100×100 单细胞小图,非千兆像素 WSI 整片(真实工作流先检测/分割、后分类);
+- 单中心数据,未做多中心验证。
+
+**五层生产化差距**(性能与临床有效性 / 数据治理与合规 / MLOps / 工作流集成 / 组织流程)完整分析见 [PRD §14](docs/免疫细胞AI辅助判读工具_一页纸PRD.md)。
+
+## 8. Roadmap
+
+概率校准(temperature scaling)→ 阈值数据化(代价函数)→ 多中心数据扩展 → LIS/PACS 集成与批量推理 → 判读报告导出。
+
+---
+
+## 附:复现与仓库说明
+
+```
+immune-cell-classifier/
+├── app.py                        # Streamlit 应用(推理编排/集成/Grad-CAM/低置信预警)
+├── Model Building Code.ipynb     # 训练代码(5 架构,两阶段微调)
+├── Project_Report.ipynb/.html    # 评测报告(可从 checkpoint 一键复现)
+├── workflow_diagram.png          # 项目工作流图
+├── docs/                         # 产品文档(PRD/架构图/泳道图/界面原型/交付截图)
+└── requirements.txt
+```
+
+- **模型权重(~480 MB)未入库**——单文件超过 GitHub 100 MB 限制;可用 `Model Building Code.ipynb` 复现训练,或联系作者获取。
+- **数据集(1.8 GB,22,005 张)未入库**;类别构成与划分口径见上文,[原始数据集链接](https://www.dropbox.com/scl/fo/avptnrxjluth1w414ufla/AEt8ARm3mICcu8gFuj_QIK8?rlkey=wuw9isad1dw4b90o1aqdvfee6&e=1&dl=0)。
+- Colab 运行:挂载 Drive 后 `!streamlit run /content/drive/My\ Drive/ImmuneCellClassifier/app.py`。
+
+| 产品文档 | 内容 |
 |---|---|
-| `docs/免疫细胞AI辅助判读工具_一页纸PRD.md` | One-page PRD: scene research (cited), user stories, goals/non-goals, P0–P2 requirements, acceptance criteria, ADRs, review & delivery log, quality-ops & A/B plan, limitations & path to production |
-| `docs/系统架构图.png` (+ `.drawio` source) | 5-layer system architecture: UI → inference orchestration → model zoo → Grad-CAM layer → assets |
-| `docs/判读主链路泳道图.png` (+ `.drawio` source) | Main pipeline swimlane with the low-confidence → manual-review boundary |
-| `docs/界面原型线框图.png` (+ `.drawio` source) | Low-fidelity UI wireframe: upload state & low-confidence result state, with interaction-design annotations |
-| `docs/app_ui_home.png` | Real delivery screenshot of the shipped app |
-| `workflow_diagram.png` | Original project workflow diagram |
-
-## Repository notes 仓库说明
-
-- **Model checkpoints (~480 MB)** are not included — individual files exceed GitHub's 100 MB limit. Retrain via `Model Building Code.ipynb`, or obtain weights from the author.
-- **Dataset (1.8 GB, 22,005 images)** is not included for size reasons; class counts and split protocol are documented above.
-- `Project_Report.html` reproduces the full evaluation from checkpoints (see `Project_Report.ipynb` / Quarto).
-
-## Run in Google Colab (from the original submission)
-
-```python
-# Step 1 — Install dependencies and mount Drive
-!pip install streamlit grad-cam pyngrok -q
-from google.colab import drive
-drive.mount('/content/drive')
-
-# Step 2 — Copy app to local disk
-!cp "/content/drive/My Drive/ImmuneCellClassifier/app.py" /content/app.py
-
-# Step 3 — Launch with ngrok tunnel
-from pyngrok import ngrok
-import threading, subprocess, time
-
-ngrok.set_auth_token("YOUR_NGROK_TOKEN")  # get free token at dashboard.ngrok.com
-
-def run():
-    subprocess.run(['streamlit', 'run', '/content/app.py',
-                    '--server.port', '8501', '--server.headless', 'true'])
-
-threading.Thread(target=run, daemon=True).start()
-time.sleep(4)
-print("App running at:", ngrok.connect(8501))
-```
+| [PRD(中文)](docs/免疫细胞AI辅助判读工具_一页纸PRD.md) | 场景调研(含引用)、用户故事、P0–P2 需求、验收标准、ADR、评审与交付记录、生产化差距分析 |
+| [系统架构图](docs/系统架构图.png)(+.drawio) | 五层架构:交互 → 推理编排 → 模型层 → 可解释层 → 资产层 |
+| [主链路泳道图](docs/判读主链路泳道图.png)(+.drawio) | 主链路与低置信转人工边界 |
+| [界面原型](docs/界面原型线框图.png)(+.drawio) | 上传态 / 低置信结果态线框 + 交互设计决策标注 |
+| [交付截图](docs/app_ui_home.png) | 已交付应用的真实界面 |
+| [workflow_diagram.png](workflow_diagram.png) | 团队原始工作流图 |
