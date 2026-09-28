@@ -48,10 +48,7 @@
 
 ## 6. Demo
 
-<!-- 演示 GIF 占位:录屏后保存为 docs/demo.gif,并取消下一行注释 -->
-<!-- ![demo](docs/demo.gif) -->
-
-**演示 GIF 待补**(上传 → 识别 → 置信度 → Grad-CAM → 低置信预警,约 30 秒)。当前交付证据:应用真实截图 [docs/app_ui_home.png](docs/app_ui_home.png);本地运行:
+交付证据:应用真实截图 [docs/app_ui_home.png](docs/app_ui_home.png)(Checkpoint 状态面板展开,5 个模型权重全部可用);本地运行:
 
 ```bash
 pip install -r requirements.txt
